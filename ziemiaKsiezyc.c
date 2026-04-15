@@ -124,3 +124,4 @@ int main()
 
 	return 0;
 }// t polozenie ziemi polozenie ksiezyca predkosc ziemi predkosc ksiezyca
+//  plot "euler.txt" u ($4-$2):($5-$3) w l
