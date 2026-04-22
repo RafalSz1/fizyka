@@ -78,7 +78,7 @@ void symulacja(const char* nazwa, int tryb, float m, float k, float dt, float t_
 	
 	    for(int i = 0; i < 2; i++)
 	    {
-	        r_old[i] = r[i] - v[i]*dt + (F[i]/(2*m))*dt*dt;
+	        r_old[i] = r[i] + v[i]*dt + (F[i]/(2*m))*dt*dt;
 	    }
 	    for(i = 0; i < 2; i++)
         {
