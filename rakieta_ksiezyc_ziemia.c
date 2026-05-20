@@ -69,7 +69,7 @@ void symulacja(double alpha_deg, const char* filename)
 			    
 			if (dF_dt_mag > 0) 
 			{
-			    dtv = sqrt((2.0 * MR * dt_prev * EPS_V) / dF_dt_mag);
+			    dtv = sqrt((2.0 * MR * EPS_V) / dF_dt_mag);
 			}
         }
         
