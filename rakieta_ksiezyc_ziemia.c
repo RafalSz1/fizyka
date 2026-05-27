@@ -53,8 +53,13 @@ void symulacja(double alpha_deg, const char* filename)
             break;
         }
 
-        double FRx = -G * MR * (MZ * rRZ_x / pow(dRZ, 3) + MK * rRK_x / pow(dRK, 3));
-        double FRy = -G * MR * (MZ * rRZ_y / pow(dRZ, 3) + MK * rRK_y / pow(dRK, 3));
+        double FRZx = -G * MR * MZ * rRZ_x / pow(dRZ, 3);
+        double FRZy = -G * MR * MZ * rRZ_y / pow(dRZ, 3);
+        double FRKx = -G * MR * MK * rRK_x / pow(dRK, 3);
+        double FRKy = -G * MR * MK * rRK_y / pow(dRK, 3);
+
+        double FRx = FRZx + FRKx;
+        double FRy = FRZy + FRKy;
         double F_mag = sqrt(FRx * FRx + FRy * FRy);
         
         double dtr = sqrt((2.0 * MR * EPS_R) / F_mag);
@@ -102,13 +107,14 @@ void symulacja(double alpha_deg, const char* filename)
 		vRx += (FRx / MR) * dt;
         vRy += (FRy / MR) * dt;
 
-		double FKx = -G * MK * (MZ * rKZ_x / pow(dKZ, 3));
-        double FKy = -G * MK * (MZ * rKZ_y / pow(dKZ, 3));
-        vKx += (FKx / MK) * dt;
-        vKy += (FKy / MK) * dt;
+		double FKZx = -G * MK * (MZ * rKZ_x / pow(dKZ, 3));
+        double FKZy = -G * MK * (MZ * rKZ_y / pow(dKZ, 3));
         
-        vZx += (-FKx / MZ) * dt;
-        vZy += (-FKy / MZ) * dt;
+        vKx += (FKZx - FRKx) / MK * dt;
+        vKy += (FKZy - FRKy) / MK * dt;
+        
+        vZx += (-FKZx - FRZx) / MZ * dt;
+        vZy += (-FKZy - FRZy) / MZ * dt;
 
         t += dt;
     }
